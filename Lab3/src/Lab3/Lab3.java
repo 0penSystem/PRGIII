@@ -159,9 +159,13 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 
 			cityCombo.removeAllItems();
 			OrderedLinkedList<City> cityList = selected.getCityList();
+//			
+//			for(int i = 0; i < cityList.count; i++){
+//				cityCombo.addItem(cityList.at(i));
+//			}
 			
-			for(int i = 0; i < cityList.count; i++){
-				cityCombo.addItem(cityList.at(i));
+			for(City c : cityList){
+				cityCombo.addItem(c);
 			}
 		}
 		

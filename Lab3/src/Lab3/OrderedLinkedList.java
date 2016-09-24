@@ -139,25 +139,32 @@ public class OrderedLinkedList<T extends Comparable<T>> implements Iterable<T> {
 	}
 
 	private class OrdListIterator implements Iterator<T> {
-		LinearNode current;
+		LinearNode current = new LinearNode(null);
+		int remaining = OrderedLinkedList.this.count;
+		
 
 		public OrdListIterator() {
-			current = head;
+			current = null;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return (current.getNext() != null);
+			return (remaining > 0 || current.getNext() != null);
 		}
 
 		@Override
 		public T next() {
+			remaining--;
+			if(current == null){
+				current = head;
+				return head.getData();
+			}
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			T result = current.getData();
+			
 			current = current.getNext();
-			return result;
+			return current.getData();
 		}
 
 		public void remove() {
