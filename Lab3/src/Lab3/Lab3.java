@@ -21,17 +21,18 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 	private JPanel panel = new JPanel();
 
 	private JPanel inputPanel = new JPanel();
+	
 	private JTextField fileField = new JTextField("CityData3.csv");
 	private JLabel fileLabel = new JLabel("Input File");
 	private JButton fileButton = new JButton("Read File");
 	private JLabel successLabel = new JLabel();
 
 	private JPanel cityPanel = new JPanel();
-	private JLabel cityLabel = new JLabel("Select City");
+	private JLabel cityLabel = new JLabel("Select City:");
 	private JComboBox<City> cityCombo = new JComboBox<City>();
 	private JComboBox<State> stateCombo = new JComboBox<State>();
 
-	private JLabel stateLabel = new JLabel("State:"),  zipLabel = new JLabel("Zipcode:"),
+	private JLabel stateLabel = new JLabel("Select State:"),  zipLabel = new JLabel("Zipcode:"),
 			zipLabelOut = new JLabel(), timezoneLabel = new JLabel("Timezone:"), timezoneLabelOut = new JLabel();
 
 	private OrderedLinkedList<State> states = new OrderedLinkedList<State>();
@@ -41,17 +42,18 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 	}
 
 	private void setup() {
-		setTitle("Lab 2");
-		setSize(350, 300);
+		setTitle("Lab 3");
+		setSize(350, 280);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		// Create a panel with an empty border to improve appearance
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		// create the input panel (goes up top)
 		inputPanel.setLayout(new GridLayout(2, 2, 10, 10));
-		// inputPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+
 
 		fileField.setPreferredSize(new Dimension(120, 20));
 
@@ -65,16 +67,20 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 		stateCombo.addItemListener(new StateListener());
 
 		// create the cityPanel
-		cityPanel.setLayout(new GridLayout(4, 2, 10, 10));
+		cityPanel.setLayout(new GridLayout(0, 2, 10, 10));
 
 		cityPanel.add(stateLabel);
-		cityPanel.add(stateCombo);
+
 		cityPanel.add(cityLabel);
+		cityPanel.add(stateCombo);
 		cityPanel.add(cityCombo);
 		cityPanel.add(zipLabel);
 		cityPanel.add(zipLabelOut);
 		cityPanel.add(timezoneLabel);
 		cityPanel.add(timezoneLabelOut);
+		
+		
+
 
 		panel.add(inputPanel, BorderLayout.NORTH);
 		panel.add(cityPanel, BorderLayout.SOUTH);
