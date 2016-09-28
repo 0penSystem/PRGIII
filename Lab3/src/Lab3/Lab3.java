@@ -19,20 +19,22 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panel = new JPanel();
-
-	private JPanel inputPanel = new JPanel();
 	
+	private JLabel titleLabel = new JLabel("City Viewer");
+
+	private JPanel lpanel = new JPanel();
+	private JPanel rpanel = new JPanel();
+		
 	private JTextField fileField = new JTextField("CityData3.csv");
 	private JLabel fileLabel = new JLabel("Input File");
 	private JButton fileButton = new JButton("Read File");
 	private JLabel successLabel = new JLabel();
 
-	private JPanel cityPanel = new JPanel();
-	private JLabel cityLabel = new JLabel("Select City:");
+	private JLabel cityLabel = new JLabel("Select City");
 	private JComboBox<City> cityCombo = new JComboBox<City>();
 	private JComboBox<State> stateCombo = new JComboBox<State>();
 
-	private JLabel stateLabel = new JLabel("Select State:"),  zipLabel = new JLabel("Zipcode:"),
+	private JLabel stateLabel = new JLabel("Select State"),  zipLabel = new JLabel("Zipcode:"),
 			zipLabelOut = new JLabel(), timezoneLabel = new JLabel("Timezone:"), timezoneLabelOut = new JLabel();
 
 	private OrderedLinkedList<State> states = new OrderedLinkedList<State>();
@@ -48,42 +50,54 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 		
 		// Create a panel with an empty border to improve appearance
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new BorderLayout(10,10));
 
-		// create the input panel (goes up top)
-		inputPanel.setLayout(new GridLayout(2, 2, 10, 10));
-
-
-
-		fileField.setPreferredSize(new Dimension(120, 20));
-
-		inputPanel.add(fileField);
-		inputPanel.add(fileLabel);
-		inputPanel.add(fileButton);
-		inputPanel.add(successLabel);
-
+		
+		cityLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		stateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		fileLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		successLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		fileButton.addActionListener(this);
 		cityCombo.addItemListener(this);
 		stateCombo.addItemListener(new StateListener());
-
-		// create the cityPanel
-		cityPanel.setLayout(new GridLayout(0, 2, 10, 10));
-
-		cityPanel.add(stateLabel);
-
-		cityPanel.add(cityLabel);
-		cityPanel.add(stateCombo);
-		cityPanel.add(cityCombo);
-		cityPanel.add(zipLabel);
-		cityPanel.add(zipLabelOut);
-		cityPanel.add(timezoneLabel);
-		cityPanel.add(timezoneLabelOut);
 		
+		//fileField.setMinimumSize(new Dimension(150,30));
+		fileField.setPreferredSize(new Dimension(150,30));
+
 		
+		fileButton.setPreferredSize(new Dimension(150,30));
+
+		
+		lpanel.setLayout(new GridLayout(0,1));
+		rpanel.setLayout(new GridLayout(0,1));
+		
+		lpanel.add(fileField);
+		rpanel.add(fileButton);
+		lpanel.add(fileLabel);
+		rpanel.add(successLabel);
+		
+		lpanel.add(new JLabel());
+		rpanel.add(new JLabel());
+
+		lpanel.add(stateLabel);
+		lpanel.add(stateCombo);
+
+		rpanel.add(cityLabel);
+		rpanel.add(cityCombo);
+		
+		lpanel.add(zipLabel);
+		rpanel.add(zipLabelOut);
+		
+		lpanel.add(timezoneLabel);
+		rpanel.add(timezoneLabelOut);
 
 
-		panel.add(inputPanel, BorderLayout.NORTH);
-		panel.add(cityPanel, BorderLayout.SOUTH);
+
+		panel.add(titleLabel, BorderLayout.NORTH);
+		panel.add(lpanel, BorderLayout.WEST);
+		panel.add(rpanel, BorderLayout.EAST);
 
 		add(panel);
 		setVisible(true);
@@ -93,6 +107,11 @@ public class Lab3 extends JFrame implements ItemListener, ActionListener {
 		try {
 			states = new OrderedLinkedList<State>();
 			stateCombo.removeAllItems();
+			cityCombo.removeAllItems();
+			zipLabelOut.setText("");
+			timezoneLabelOut.setText("");
+			
+			
 			Scanner inFile = new Scanner(new FileReader(filename));
 
 			inFile.useDelimiter(", *|\n|\r\n");
